@@ -33,9 +33,11 @@ const Home = () => {
             submitHandler(e);
         }
     };
+    
     useEffect(() => {
         localStorage.setItem("task", JSON.stringify(task))
     }, [task])
+
     const deleteTask = (index) => {
         const filteredArray = task.filter((val, i) => {
             return i !== index
