@@ -1,10 +1,11 @@
 import React from 'react'
 
-const Task = ({ title, description, deleteTask, index }) => {
- 
+const Task = ({ date, title, description, deleteTask, index }) => {
+
   return (
     <div className='task'>
       <div>
+        <p>{date}</p>
         <p>{title}</p>
         <span>{description}</span>
       </div>

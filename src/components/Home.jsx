@@ -10,7 +10,8 @@ const Home = () => {
     const [task, setTask] = useState(intialArray);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const[taskDone,setTaskDone]= useState([])
+    const [taskDone, setTaskDone] = useState([])
+    const [date, setDate] = useState("")
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
@@ -18,17 +19,22 @@ const Home = () => {
     const descriptionHandler = (e) => {
         setDescription(e.target.value)
     }
+    const dateHandler = (e) => {
+        setDate(e.target.value)
+    }
     const titleRef = useRef(null)
 
     const submitHandler = (e) => {
         e.preventDefault();
         const newTodo = {
+            date: date,
             title: title,
             description: description,
         };
         setTask([...task, newTodo]);
         setTitle("");
         setDescription("");
+        setDate("")
         titleRef.current.focus();
     }
 
@@ -45,10 +51,10 @@ const Home = () => {
     // const CompletedWorkArray = []
     const deleteTask = (index) => {
         const filteredArray = task.filter((val, i) => {
-            if(i==index){
+            if (i == index) {
                 setTaskDone(prevTaskDone => [...prevTaskDone, task[i]]);
                 // setTaskDone([...taskDone,task[i]])
-            }           
+            }
             return i !== index
         })
         console.log("filteredArray", filteredArray);
@@ -65,18 +71,19 @@ const Home = () => {
         <div className='container'>
             <h1>Daily Goals</h1>
             <form onSubmit={submitHandler}>
-                <input type='text' placeholder='Title' onChange={titleHandler} value={title} ref = {titleRef}/>
+                <input type='date' placeholder='Enter Date' value={date} onChange={dateHandler} />
+                <input type='text' placeholder='Title' onChange={titleHandler} value={title} ref={titleRef} />
                 <textarea placeholder='Description' onChange={descriptionHandler} value={description} onKeyDown={handleKeyDown} ></textarea>
                 <button type="submit">Add</button>
             </form>
-            <Report/>
+            {/* <Report/> */}
             {task.map((item, index) => (
                 <div key={index}>
-                    <Task title={item.title} description={item.description}
+                    <Task date={item.date} title={item.title} description={item.description}
                         deleteTask={deleteTask} index={index} />
                 </div>
             ))}
-          
+
 
 
 
